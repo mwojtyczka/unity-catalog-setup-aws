@@ -1,4 +1,4 @@
-# Unity Catalog Setup on AWS
+# Unity Catalog Deployment with Terraform on AWS
 
 This repository contains an example of end to end unity catalog deployment with terraform on aws. 
 As part of the deployment Databricks unity catalog resources and required AWS resources are created.
