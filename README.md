@@ -56,7 +56,7 @@ The following design decisions are applied as part of the deployment:
 * Use case teams are responsible for providing LOCATION when creating external tables so that the data lands in the correct use case S3 buckets
 (in the future it will be possible to specify LOCATION at the catalog level for managed tables so platform team will be able to manage this for the use case teams)
   
-## Resources created and actions performed as of this terraform deployment
+## Resources to be created as part of the deployment
 
 * Create account admin group in the databricks account console. Not needed if provisioned via SCIM from IdP.
 * Assign predefined admin users (in `main/config.tfvars`) to the account admin group
