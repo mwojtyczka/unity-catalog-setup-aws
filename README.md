@@ -20,7 +20,7 @@ There are two configuration files that you should adjust prior to running the te
       If SSO is enabled for the account console, you have to provide account owner/root credentials!
       Token based authentication for the account console will be available in the future.
     * workspace token: generate PAT token for your user in any of your workspaces and store it in `databricks/workspace_token` secret.
-4. Create S3 bucket and IAM role for use cases as configured in the `main/config.tfvars` (see `data_bucket` and `data_role_arn`): 
+4. Create S3 bucket and IAM role for use cases as defined in the `main/config.tfvars` (see `data_bucket` and `data_role_arn`): 
    https://docs.databricks.com/data-governance/unity-catalog/manage-external-locations-and-credentials.html
    
 ## Usage
@@ -44,17 +44,21 @@ There are two configuration files that you should adjust prior to running the te
 
 ## Design decisions
 
-The following design decisions are applied as part of the deployment:
+The deployment follows the following design:
 
 * One Databricks account is used
 * One Unity Catalog metastore for all workspaces is created. If you have workspaces located in multiple aws regions, you will have to create a separate metastore for each region!
-* One catalog, storage credential, external location for each use case and environment is created: `<usecase>_<environment>`
-* One set of groups for each use case and environment is created: `admin_<usecase>_<environment>` (owner of databases and tables), `user_<usecase>_<environment>` (users with default usage/view access to a use case catalog)
-* One account admin group for platform team is created. The group is used as owner for all unity catalog objects, e.g. catalogs, external locations, storage credentials etc.
+* One catalog, storage credential, and external location is created for each use case and environment: `<usecase>_<environment>`
+* One set of groups is created for each use case and environment: `admin_<usecase>_<environment>` (owner of databases and tables), `user_<usecase>_<environment>` (users with default usage/view access to a use case catalog)
+* One account admin group for the platform team is created. The group is used as an owner for all unity catalog objects created as part of this deployment, e.g. metastore, catalogs, external locations, storage credentials etc.
 * One Service Principal (sp) for automation is created for each use case and environment: `sp_<usecase>_<environment>`
-* Use case teams are responsible for creating one unity catalog compatible S3 bucket and IAM role for external locations / tables. This could optionally be done as part of this deployment as well.
-* Use case teams are responsible for providing LOCATION when creating external tables so that the data lands in the correct use case S3 buckets
-(in the future it will be possible to specify LOCATION at the catalog level for managed tables so platform team will be able to manage this for the use case teams)
+* Use case teams are responsible for creating one unity catalog compatible S3 bucket and IAM role for external locations and tables. 
+  This could also be part of this deployment but it would put more burden on the platform team.
+* Use case teams are responsible for providing LOCATIONs when creating external tables so that the data lands in the correct use case S3 buckets. 
+  
+> **_NOTE:_**  Databricks will provide a functionality to specify LOCATION at the catalog level for managed tables in the future 
+> so that the platform team will be able to manage the LOCATIONs for the use case teams. 
+> At the moment, if you want your data to be stored in separate buckets outside the root metastore bucket you need to use external tables.
   
 ## Resources to be created as part of the deployment
 
