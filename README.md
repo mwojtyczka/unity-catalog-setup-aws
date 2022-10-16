@@ -70,3 +70,61 @@ The following design decisions are applied as part of the deployment:
 * Create catalog for each use case
 
 If you want to get more details, have a look inside `main/main.tf` file.
+
+
+Creating tables is not part of the deployment and should be the responsibility of the use case teams.
+
+## Terraform providers (authentication)
+
+Providers are used to define connections/authentication to various resources and are defined in `main/providers.tf` file.
+
+1. AWS provider to the aws account where unity catalog metastore resources should be deployed. 
+   The authentication is done with aws profile. 
+```
+provider "aws" {
+  alias = "uc"
+  region = "eu-west-1"
+  profile = var.aws_profile
+}
+```
+
+2. Databricks provider for the Databricks account console. This is used for creating account level resources like groups and assigning them to workspaces.
+```
+provider "databricks" {
+  alias = "account"
+  host = "https://accounts.cloud.databricks.com/"
+  account_id = var.databricks_account_id
+  username = jsondecode(data.aws_secretsmanager_secret_version.account_credentials.secret_string)["user"]
+  password = jsondecode(data.aws_secretsmanager_secret_version.account_credentials.secret_string)["password"]
+}
+```
+The authentication can only be done at the moment using basic auth with username and password.
+In addition, if SSO is enabled for the account console, account owner/root credentials have to be used.
+The username and password are retrieved from AWS Secret Manager for security reasons.
+
+Databricks will support authentication to the account console using user or service principal tokens.
+
+3. Databricks provider for a Databricks workspace that is used for deploying Unity Catalog resources, e.g. metastore, catalogs, tables, storage credentials, external locations
+
+> **_NOTE:_**  The note content.
+   
+dthat can be shared  account level resources but their deployment is done  
+# define workspace provider through which UC resources will be deployed
+# this can be any workspace as long as the account admin user that you use has access to it
+```
+provider "databricks" {
+  alias = "workspace"
+  host = var.workspace_host
+  token = jsondecode(data.aws_secretsmanager_secret_version.workspace_token.secret_string)["token"]
+}
+```
+The authentication to the workspace is performed using [PAT token](https://docs.databricks.com/dev-tools/api/latest/authentication.html)
+The token has to be generated for a user or service principal that is a Databricks account admin!
+
+---
+**NOTE**
+
+Unity Catalog resources are account level resources and it might be counterintuitive but unity catalog resources deployment is performed using a workspace provider/connection. 
+You can use any workspace that belongs to the Databricks account you are using.
+
+---
