@@ -1,6 +1,6 @@
 // create account admin group in the account (optional - if not scim provisioned from IdP)
 module "account_admin_group" {
-  source = "../account/group"
+  source = "../modules/account/group"
 
   group_name = var.account_admin_group
 
@@ -11,7 +11,7 @@ module "account_admin_group" {
 
 // assign admin users to account admin group
 module "group_members" {
-  source = "../account/group-members"
+  source = "../modules/account/group-members"
 
   for_each = toset(var.account_admin_group_users)
 
@@ -25,7 +25,7 @@ module "group_members" {
 
 // create usecase admin groups in the account console (optional - if not scim provisioned from IdP)
 module "usecase_admin_group" {
-  source = "../account/group"
+  source = "../modules/account/group"
 
   # create a group for each workspace
   for_each = { for record in local.usecases : record.prefix => record }
@@ -39,7 +39,7 @@ module "usecase_admin_group" {
 
 // create usecase user groups in the account console (optional - if not scim provisioned from IdP)
 module "usecase_user_group" {
-  source = "../account/group"
+  source = "../modules/account/group"
 
   # create a group for each workspace
   for_each = { for record in local.usecases : record.prefix => record }
@@ -53,7 +53,7 @@ module "usecase_user_group" {
 
 // create service principals in the account for each use case
 module "service_principals" {
-  source = "../account/service-principal"
+  source = "../modules/account/service-principal"
 
   for_each = { for record in local.usecases : record.prefix => record }
 
@@ -73,7 +73,7 @@ module "service_principals" {
 
 // create unity catalog metastore
 module "metastore" {
-  source = "../metastore"
+  source = "../modules/metastore"
 
   metastore_name = var.metastore_name
   metastore_role_name = var.metastore_role_name
@@ -94,7 +94,7 @@ module "metastore" {
 
 // assign usecase user group to workspaces
 module "assign_usecase_user_group_to_workspaces" {
-  source = "../account/assign-group-to-workspace"
+  source = "../modules/account/assign-group-to-workspace"
 
   for_each = { for record in local.usecases : record.prefix => record }
 
@@ -114,7 +114,7 @@ module "assign_usecase_user_group_to_workspaces" {
 
 // assign usecase admin group to workspaces
 module "assign_usecase_admin_group_to_workspaces" {
-  source = "../account/assign-group-to-workspace"
+  source = "../modules/account/assign-group-to-workspace"
 
   for_each = { for record in local.usecases : record.prefix => record }
 
@@ -134,7 +134,7 @@ module "assign_usecase_admin_group_to_workspaces" {
 
 // assign account admin group to all workspaces
 module "assign_account_admin_group_to_workspaces" {
-  source = "../account/assign-group-to-workspace"
+  source = "../modules/account/assign-group-to-workspace"
 
   for_each = { for record in local.usecases : record.prefix => record }
 
@@ -154,7 +154,7 @@ module "assign_account_admin_group_to_workspaces" {
 
 // create external locations and storage credentials for each use case
 module "files" {
-  source = "../usecase/file"
+  source = "../modules/usecase/file"
 
   for_each = { for record in local.usecases : record.prefix => record }
 
@@ -177,7 +177,7 @@ module "files" {
 
 // create a catalog for each use case
 module "catalogs" {
-  source = "../usecase/catalog"
+  source = "../modules/usecase/catalog"
 
   for_each = { for record in local.usecases : record.prefix => record }
 

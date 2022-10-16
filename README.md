@@ -32,12 +32,13 @@ There are two configuration files that you should adjust prior to running the te
 
 ```
 .
-├── main                     # Main code that run the individual terraform modules
-├── metastore                # Terraform module for deploying metastore and required aws resources (S3 bucket, IAM role)
-├── usecase                  # A set of terraform modules for deploying use case specific unity catalog objects, e.g. catalogs, storage credentials, external locations
-├── account                  # A set of terraform modules for deploying account objects, e.g. groups, service principals
-├── service-principal-token  # Terraform module for creating service principal token and store in aws secret manager
-├── deploy.sh                # Script that can be used for running the terraform code and deploying the resources
+├── main                        # Main code that run the individual terraform modules
+├── modules
+    ├── metastore               # Terraform module for deploying metastore and required aws resources (S3 bucket, IAM role)
+    ├── usecase                 # A set of terraform modules for deploying use case specific unity catalog objects, e.g. catalogs, storage credentials, external locations
+    ├── account                 # A set of terraform modules for deploying account objects, e.g. groups, service principals
+    ├── service-principal-token # Terraform module for creating service principal token and store in aws secret manager
+├── deploy.sh                   # Script that can be used for running the terraform code and deploying the resources
 ├── design.png
 ├── design.excalidraw
 ├── LICENSE
