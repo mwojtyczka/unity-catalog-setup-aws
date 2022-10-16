@@ -105,12 +105,7 @@ The username and password are retrieved from AWS Secret Manager for security rea
 Databricks will support authentication to the account console using user or service principal tokens.
 
 3. Databricks provider for a Databricks workspace that is used for deploying Unity Catalog resources, e.g. metastore, catalogs, tables, storage credentials, external locations
-
-> **_NOTE:_**  The note content.
-   
-dthat can be shared  account level resources but their deployment is done  
-# define workspace provider through which UC resources will be deployed
-# this can be any workspace as long as the account admin user that you use has access to it
+ 
 ```
 provider "databricks" {
   alias = "workspace"
@@ -121,10 +116,5 @@ provider "databricks" {
 The authentication to the workspace is performed using [PAT token](https://docs.databricks.com/dev-tools/api/latest/authentication.html)
 The token has to be generated for a user or service principal that is a Databricks account admin!
 
----
-**NOTE**
-
-Unity Catalog resources are account level resources and it might be counterintuitive but unity catalog resources deployment is performed using a workspace provider/connection. 
+> **_NOTE:_**  Unity Catalog resources are account level resources and it might be counterintuitive but unity catalog resources deployment is performed using a workspace provider/connection. 
 You can use any workspace that belongs to the Databricks account you are using.
-
----
