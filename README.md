@@ -116,5 +116,6 @@ provider "databricks" {
 The authentication to the workspace is performed using [PAT token](https://docs.databricks.com/dev-tools/api/latest/authentication.html)
 The token has to be generated for a user or service principal that is a Databricks account admin!
 
-> **_NOTE:_**  Unity Catalog resources are account level resources and it might be counterintuitive but unity catalog resources deployment is performed using a workspace provider/connection. 
-You can use any workspace that belongs to the Databricks account you are using.
+> **_NOTE:_**  Unity Catalog resources are account level resources, and it might be counterintuitive but 
+> unity catalog resources have to be deployed using a Databricks workspace provider (not account provider).
+> You can use any workspace as long as it belongs to the Databricks account you are using.
