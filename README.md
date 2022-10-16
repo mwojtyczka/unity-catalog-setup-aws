@@ -38,6 +38,8 @@ There are two configuration files that you should adjust prior to running the te
 ├── account                  # A set of terraform modules for deploying account objects, e.g. groups, service principals
 ├── service-principal-token  # Terraform module for creating service principal token and store in aws secret manager
 ├── deploy.sh                # Script that can be used for running the terraform code and deploying the resources
+├── design.png
+├── design.excalidraw
 ├── LICENSE
 └── README.md
 ```
@@ -59,6 +61,16 @@ The deployment follows the following design:
 > **_NOTE:_**  Databricks will provide a functionality to specify LOCATION at the catalog level for managed tables in the future 
 > so that the platform team will be able to manage the LOCATIONs for the use case teams. 
 > At the moment, if you want your data to be stored in separate buckets outside the root metastore bucket you need to use external tables.
+
+### Organizational Model of Governance
+
+The design follows a shared responsibility model where the platform team is responsible for all Unity Catalog setup 
+and management up to catalogs. 
+
+The use case teams are responsible for creating and granting access to databases and tables,
+as well as use case specific AWS resources (e.g. buckets and iam roles for storage credentials and external locations).
+
+![Organizational Model of Governance](design.png)
   
 ## Resources to be created as part of the deployment
 
