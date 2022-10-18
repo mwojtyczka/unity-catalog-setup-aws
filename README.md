@@ -7,8 +7,26 @@ As part of the deployment Databricks unity catalog resources and required AWS re
 
 There are two configuration files that you should adjust prior to running the terraform code:
 
-1. `main/config.tfvars` - contains the main deployment configuration
-2. `main/backend.conf` - contains backend configuration for storing the terraform state files
+1. `main/config.tfvars` - contains the main deployment configuration.
+   The main setting is `usecases` array that contains use cases configuration.
+   
+   Workspaces that are specified in the array will be attached to the metastore automatically.
+   The name and environment fields are used for naming resources as prefix.
+   Data role and bucket are used for creating storage credentials and external locations for external tables.
+   ```
+   usecases = [
+     {
+       name = "usecase1"
+       environment = "dev"
+       workspace_name = "dev1"
+       # data role as per https://docs.databricks.com/data-governance/unity-catalog/get-started.html#configure-a-storage-bucket-and-iam-role-in-aws
+       data_role_arn = "arn:aws:iam::11111111111:role/<company-name>-role-uc-external-location-uc-dev"
+       data_bucket = "<company-name>-uc-dev"
+     }
+      /* add more use cases here */
+   ]
+   ```
+2. `main/backend.conf` - contains backend configuration for storage of the terraform state files.
 
 ## Setup
 
