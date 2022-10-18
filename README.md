@@ -109,7 +109,7 @@ If you want to get more details, have a look inside `main/main.tf` file.
 
 Creating tables is not part of the deployment and should be the responsibility of the use case teams.
 
-## Terraform providers (authentication)
+## Terraform providers configuration (authentication)
 
 Providers are used to define connections/authentication to various resources and are defined in `main/providers.tf` file.
 
