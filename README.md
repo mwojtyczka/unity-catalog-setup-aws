@@ -20,8 +20,8 @@ There are two configuration files that you should adjust prior to running the te
        environment = "dev"
        workspace_name = "dev1"
        # data role as per https://docs.databricks.com/data-governance/unity-catalog/get-started.html#configure-a-storage-bucket-and-iam-role-in-aws
-       data_role_arn = "arn:aws:iam::11111111111:role/<company-name>-role-uc-external-location-uc-dev"
-       data_bucket = "<company-name>-uc-dev"
+       data_role_arn = "arn:aws:iam::11111111111:role/companyA-role-uc-external-location-uc-dev"
+       data_bucket = "companyA-uc-dev"
      }
       /* add more use cases here */
    ]

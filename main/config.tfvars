@@ -1,6 +1,6 @@
-metastore_name = "<company-name>-uc-eu-west-1"
-metastore_bucket_name = "<company-name>-databricks-uc-metastore-root-eu-west-1"
-metastore_role_name = "<company-name>-databricks-role-uc-metastore-eu-west-1"
+metastore_name = "companyA-uc-eu-west-1"
+metastore_bucket_name = "companyA-databricks-uc-metastore-root-eu-west-1"
+metastore_role_name = "companyA-databricks-role-uc-metastore-eu-west-1"
 
 databricks_account_id = "00000000-0000-0000-0000-000000000000" # as per your databricks account id
 
@@ -28,29 +28,29 @@ usecases = [
     environment = "dev"
     workspace_name = "dev1"
     # data role as per https://docs.databricks.com/data-governance/unity-catalog/get-started.html#configure-a-storage-bucket-and-iam-role-in-aws
-    data_role_arn = "arn:aws:iam::11111111111:role/<company-name>-role-uc-external-location-uc-dev"
-    data_bucket = "<company-name>-uc-dev"
+    data_role_arn = "arn:aws:iam::11111111111:role/companyA-role-uc-external-location-uc-dev"
+    data_bucket = "companyA-uc-dev"
   }
   /*,
   {
     name = "usecase2"
     environment = "dev"
     workspace_name = "dev2"
-    data_role_arn = "arn:aws:iam::11111111111:role/<company-name>-role-uc-external-location-uc-dev"
-    data_bucket = "<company-name>-uc-dev"
+    data_role_arn = "arn:aws:iam::11111111111:role/companyA-role-uc-external-location-uc-dev"
+    data_bucket = "companyA-uc-dev"
   },
   {
     name = "usecase1"
     environment = "qa"
     workspace_name = "qa"
-    data_role_arn = "arn:aws:iam::2222222222:role/<company-name>-role-uc-external-location-qa"
-    data_bucket = "<company-name>-uc-qa"
+    data_role_arn = "arn:aws:iam::2222222222:role/companyA-role-uc-external-location-qa"
+    data_bucket = "companyA-uc-qa"
   },
   {
     name = "usecase1"
     environment = "prod"
     workspace_name = "prod"
-    data_role_arn = "arn:aws:iam::33333333333:role/<company-name>-role-uc-external-location-prod"
-    data_bucket = "<company-name>-uc-prod"
+    data_role_arn = "arn:aws:iam::33333333333:role/companyA-role-uc-external-location-prod"
+    data_bucket = "companyA-uc-prod"
   }*/
 ]
