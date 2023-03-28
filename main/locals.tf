@@ -18,5 +18,5 @@ locals {
     ]
   ])
 
-  workspace_ids = distinct(for x in local.usecases : x.workspace_id)
+  workspace_ids = distinct([for x in local.usecases : x.workspace_id])
 }
